@@ -23,3 +23,55 @@ width: 300px;
 </head>
 
 <body>
+
+<input type="text" id="b">
+
+<input type="button" id="buscar" value="Buscar">
+
+<div id="imagenes"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+
+$(document).on("ready", main);
+
+function main() {
+
+$("#buscar").on("click", function () {
+
+var texto = "";
+
+var tag = $("#b").val();
+
+$("#imagenes").text("Cargando...");
+
+//como llamar u json
+
+$.getJSON("https://api.themoviedb.org/3/search/multi?api_key=627f5aa49c72d956816a42be38b338cd&language=en_US&query="
+
++ tag , function (datos) {
+
+$.each(datos.results, function (i, item) {
+
+texto += "<div class= ' cuadro '>";
+
+texto += "<img style='width:20%' src= 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/" + item.poster_path + "' />";
+
+texto += "</div>";
+
+});
+
+$("#imagenes").html(texto);
+
+});
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
